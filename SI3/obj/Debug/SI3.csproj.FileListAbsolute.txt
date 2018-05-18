@@ -1,7 +1,0 @@
-D:\Projekty\CSharp\SI3\SI3\obj\Debug\SI3.csprojResolveAssemblyReference.cache
-D:\Projekty\CSharp\SI3\SI3\obj\Debug\SI3.csproj.CoreCompileInputs.cache
-D:\Projekty\CSharp\SI3\SI3\bin\Debug\SI3.exe.config
-D:\Projekty\CSharp\SI3\SI3\bin\Debug\SI3.exe
-D:\Projekty\CSharp\SI3\SI3\bin\Debug\SI3.pdb
-D:\Projekty\CSharp\SI3\SI3\obj\Debug\SI3.exe
-D:\Projekty\CSharp\SI3\SI3\obj\Debug\SI3.pdb

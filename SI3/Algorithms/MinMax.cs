@@ -8,6 +8,7 @@ namespace SI3.Algorithms
 {
     public class MinMax : IAlgorithm
     {
+
         public Node ChoiceBestMove(Node root) {
             return MinMaxFunction(root, true)
                 .Children

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithm\AlphaBeta.cs" />
     <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Algorithm\IAlgorithm.cs" />
     <Compile Include="Algorithm\MinMax.cs" />

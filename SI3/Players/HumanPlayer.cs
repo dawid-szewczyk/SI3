@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    class HumanPlayer : Player
+    public class HumanPlayer : Player
     {
         public HumanPlayer(int color) {
             Color = color;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3.Heuristics.NodeChoice
 {
-    interface INodeChoice
+    public interface INodeChoice
     {
         Node ChooseNode(Node parent);
     }

@@ -1,4 +1,4 @@
-﻿using SI3.Algorithm;
+﻿using SI3.Algorithms;
 using SI3.Heuristics.GameState;
 using SI3.Heuristics.NodeChoice;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    class AIPlayer : Player
+    public class AIPlayer : Player
     {
         int treeDepth;
         IGameState gameStateCalculator;

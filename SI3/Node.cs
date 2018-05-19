@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    class Node
+    public class Node
     {
         public Board Board { get; }
         public Tuple<int, int> PositionOnBoard { get; }

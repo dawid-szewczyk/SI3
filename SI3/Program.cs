@@ -1,4 +1,4 @@
-﻿using SI3.Algorithm;
+﻿using SI3.Algorithms;
 using SI3.Heuristics.GameState;
 using System;
 using System.Collections.Generic;
@@ -11,10 +11,10 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(3);
+            Board board = new Board(6);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 10, new PointsGain(), null, new MinMax()),
-                new HumanPlayer(2)
+                new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
+                new AIPlayer(2, 4, new PointsGain(), null, new MinMax())
             };
 
             while(board.GetAvailableMoves().Any()) {          

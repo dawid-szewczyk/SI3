@@ -12,10 +12,10 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(5);
+            Board board = new Board(6);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
-                new AIPlayer(2, 4, new PointsGain(), null, new AlphaBeta())
+                new AIPlayer(1, 5, new PointsGain(), null, new MinMax()),
+                new AIPlayer(2, 5, new PointsGain(), null, new AlphaBeta())
             };
 
             while(board.GetAvailableMoves().Any()) {          

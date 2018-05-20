@@ -24,5 +24,10 @@ namespace SI3
         public void AddChild(Node child) {
             Children.Add(child);
         }
+
+        public bool isLeaf()
+        {
+            return !Children.Any();
+        }
     }
 }

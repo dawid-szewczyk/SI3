@@ -33,17 +33,18 @@ namespace SI3
         Node BuildTree(Board board, Tuple<int, int> positionOnBoard, int currentDepth) {
             Node node = new Node(positionOnBoard);
 
-            if(currentDepth < treeDepth) {
+            if (currentDepth < treeDepth) {
                 foreach (Tuple<int, int> move in board.GetAvailableMoves()) {
                     board.SetPoint(move.Item1, move.Item2, 1);
                     Node child = BuildTree(board, move, currentDepth + 1);
                     node.AddChild(child);
                     board.SetPoint(move.Item1, move.Item2, 0);
                 }
-            } else {
+            }
+            else {
                 node.Value = GameStateCalculator.Calculate(board, node.PositionOnBoard);
             }
             return node;
-        } 
+        }
     }
 }

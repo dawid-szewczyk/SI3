@@ -12,7 +12,7 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(5);
+            Board board = new Board(4);
             List<Player> players = new List<Player> {
                 new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
                 new HumanPlayer(2)

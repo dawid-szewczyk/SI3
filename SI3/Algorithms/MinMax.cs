@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SI3.Algorithm
+namespace SI3.Algorithms
 {
-    class MinMax : IAlgorithm
+    public class MinMax : IAlgorithm
     {
-
         public Node ChoiceBestMove(Node root) {
             return MinMaxFunction(root, true)
                 .Children
@@ -38,6 +37,10 @@ namespace SI3.Algorithm
             }
 
             return node;
+        }
+
+        public override string ToString() {
+            return "MinMax";
         }
     }
 }

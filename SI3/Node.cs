@@ -19,7 +19,7 @@ namespace SI3
             Children = new List<Node>();
             Alpha = int.MinValue;
             Beta = int.MaxValue;
-        }
+        }      
 
         public void AddChild(Node child) {
             Children.Add(child);

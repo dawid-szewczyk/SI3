@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SI3.Algorithm
+namespace SI3.Algorithms
 {
-    interface IAlgorithm
+    public interface IAlgorithm
     {
         Node ChoiceBestMove(Node root);
     }

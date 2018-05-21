@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    class Board
+    public class Board
     {
         int[][] board;
         int size;

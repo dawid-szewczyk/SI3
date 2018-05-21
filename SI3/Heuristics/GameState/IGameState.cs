@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3.Heuristics.GameState
 {
-    interface IGameState
+    public interface IGameState
     {
         int Calculate(Board board, Tuple<int, int> move);
     }

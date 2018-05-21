@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    class HumanPlayer : Player
+    public class HumanPlayer : Player
     {
         public HumanPlayer(int color) {
             Color = color;
@@ -20,9 +20,10 @@ namespace SI3
                 try {
                     int row = Int32.Parse(data[0]);
                     int column = Int32.Parse(data[1]);
-                    if(board.IsFieldEmpty(row, column)) {
+                    if (board.IsFieldEmpty(row, column)) {
                         move = new Tuple<int, int>(row, column);
-                    } else {
+                    }
+                    else {
                         Console.WriteLine("Wybrane pole jest zajęte!");
                     }
                 }

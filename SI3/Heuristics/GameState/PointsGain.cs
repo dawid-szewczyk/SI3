@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace SI3.Heuristics.GameState
 {
-    class PointsGain : IGameState
+    public class PointsGain : IGameState
     {
         public int Calculate(Board board, Tuple<int, int> move) {
             return board.CalculatePointsGain(move.Item1, move.Item2);
+        }
+
+        public override string ToString() {
+            return "Zysk punktowy";
         }
     }
 }

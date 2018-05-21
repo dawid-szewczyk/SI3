@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SI3
 {
-    abstract class Player
+    public abstract class Player
     {
         public int Points { get; protected set; }
         public int Color { get; protected set; }

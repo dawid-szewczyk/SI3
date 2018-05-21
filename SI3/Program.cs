@@ -12,10 +12,10 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(6);
+            Board board = new Board(5);
             List<Player> players = new List<Player> {
                 new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
-                new AIPlayer(2, 4, new PointsGain(), null, new AlphaBeta())
+                new HumanPlayer(2)
             };
 
             while(board.GetAvailableMoves().Any()) {          
@@ -24,13 +24,9 @@ namespace SI3
                         Console.Write("Stan gry -");
                         players.ForEach(p => Console.Write($" gracz{p.Color}: {p.Points}"));
                         Console.Write("\n");
-
                         board.Print();
-                        Stopwatch stopwatch = new Stopwatch();
-                        stopwatch.Start();
+
                         Tuple<int, int> move = player.ChooseMove(board);
-                        stopwatch.Stop();
-                        Console.Write("czas decyzji: " + stopwatch.Elapsed);
                         board.SetPoint(move.Item1, move.Item2, player.Color);
                         player.AddPoints(board.CalculatePointsGain(move.Item1, move.Item2));
                     }
@@ -46,8 +42,6 @@ namespace SI3
             } else {
                 Console.WriteLine("Nie ma graczy - nie ma gry.");
             }
-            Console.ReadLine();
-            Console.ReadLine();
         }
     }
 }

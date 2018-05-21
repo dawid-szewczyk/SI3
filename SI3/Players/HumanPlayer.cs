@@ -20,9 +20,10 @@ namespace SI3
                 try {
                     int row = Int32.Parse(data[0]);
                     int column = Int32.Parse(data[1]);
-                    if(board.IsFieldEmpty(row, column)) {
+                    if (board.IsFieldEmpty(row, column)) {
                         move = new Tuple<int, int>(row, column);
-                    } else {
+                    }
+                    else {
                         Console.WriteLine("Wybrane pole jest zajęte!");
                     }
                 }

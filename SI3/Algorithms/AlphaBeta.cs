@@ -4,22 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SI3.Algorithm
+namespace SI3.Algorithms
 {
-    class AlphaBeta : IAlgorithm
+    public class AlphaBeta : IAlgorithm
     {
         public Node ChoiceBestMove(Node root)
         {
-            return AlphaBetaFunction(root, true,root.Alpha,root.Beta)
+            Console.WriteLine(AlphaBetaFunction(root, true, root.Alpha, root.Beta)
+                .Children
+                .Where(child => child.Value == root.Value)
+                .FirstOrDefault() == null);
+            return AlphaBetaFunction(root, true, root.Alpha, root.Beta)
                 .Children
                 .Where(child => child.Value == root.Value)
                 .FirstOrDefault();
         }
 
-        Node AlphaBetaFunction(Node node, bool maximizing, int alpha,int beta)
+        Node AlphaBetaFunction(Node node, bool maximizing, int alpha, int beta)
         {
-            if (node.Children.Count == 0)
+            if (node.Children.Count == 0) {
                 return node;
+            }
+
             //Jeżeli rusza się przeciwnik to dla każdego węzła szukamy bety (minimum)
             if(!maximizing)
             {

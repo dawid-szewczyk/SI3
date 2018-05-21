@@ -13,7 +13,7 @@ namespace SI3.Heuristics.GameState
         }
 
         public override string ToString() {
-            return "Liczba zdobytych punktów";
+            return "Zysk punktowy";
         }
     }
 }

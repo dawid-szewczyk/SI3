@@ -12,46 +12,38 @@ namespace SI3
     public class AIPlayer : Player
     {
         int treeDepth;
-        IGameState gameStateCalculator;
-        INodeChoice nodeSelector;
-        IAlgorithm algorithm;
+        public IGameState GameStateCalculator { get; }
+        public INodeChoice NodeSelector { get; }
+        public IAlgorithm Algorithm { get; }
 
         public AIPlayer(int color, int treeDepth, IGameState gameStateCalculator, INodeChoice nodeSelector, IAlgorithm algorithm) {
             Color = color;
             Points = 0;
             this.treeDepth = treeDepth;
-            this.gameStateCalculator = gameStateCalculator;
-            this.nodeSelector = nodeSelector;
-            this.algorithm = algorithm;
+            GameStateCalculator = gameStateCalculator;
+            NodeSelector = nodeSelector;
+            Algorithm = algorithm;
         }
 
         public override Tuple<int, int> ChooseMove(Board board) {
             Node root = BuildTree(board, null, 0);
-            SetLeafsValues(root);
-            return algorithm.ChoiceBestMove(root).PositionOnBoard;
+            return Algorithm.ChoiceBestMove(root).PositionOnBoard;
         }
 
         Node BuildTree(Board board, Tuple<int, int> positionOnBoard, int currentDepth) {
-            Node node = new Node(board, positionOnBoard);
+            Node node = new Node(positionOnBoard);
 
             if(currentDepth < treeDepth) {
                 foreach (Tuple<int, int> move in board.GetAvailableMoves()) {
-                    Board boardAfterMove = new Board(board, move);
-                    Node child = BuildTree(boardAfterMove, move, currentDepth + 1);
+                    board.SetPoint(move.Item1, move.Item2, 1);
+                    Node child = BuildTree(board, move, currentDepth + 1);
                     node.AddChild(child);
+                    board.SetPoint(move.Item1, move.Item2, 0);
                 }
+            } else {
+                node.Value = GameStateCalculator.Calculate(board, node.PositionOnBoard);
             }
             return node;
         } 
-
-        void SetLeafsValues(Node node) {
-            if(node.Children.Count == 0) {
-                node.Value = gameStateCalculator.Calculate(node.Board, node.PositionOnBoard);
-            } else {
-                foreach(Node child in node.Children) {
-                    SetLeafsValues(child);
-                }
-            }
-        }
     }
 }

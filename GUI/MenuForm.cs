@@ -24,8 +24,13 @@ namespace GUI
 
         void FillAlgorithmComboBoxes() {
             IAlgorithm minMax = new MinMax();
+            IAlgorithm alphaBeta = new AlphaBeta();
+
             player1AlgorithmChoice.Items.Add(minMax);
+            player1AlgorithmChoice.Items.Add(alphaBeta);
+
             player2AlgorithmChoice.Items.Add(minMax);
+            player2AlgorithmChoice.Items.Add(alphaBeta);
         }
 
         void FillGameStateHeuristicComboBoxes() {
@@ -36,6 +41,7 @@ namespace GUI
 
         private void Player1AICheckboxCheckedChanged(object sender, EventArgs e) {
             bool checkboxChecked = ((CheckBox)sender).Checked;
+
             player1TreeDepthChoice.Enabled = checkboxChecked;
             player1AlgorithmChoice.Enabled = checkboxChecked;
             player1GameStateHeuristicChoice.Enabled = checkboxChecked;
@@ -44,6 +50,7 @@ namespace GUI
 
         private void Player2AICheckboxCheckedChanged(object sender, EventArgs e) {
             bool checkboxChecked = ((CheckBox)sender).Checked;
+
             player2TreeDepthChoice.Enabled = checkboxChecked;
             player2AlgorithmChoice.Enabled = checkboxChecked;
             player2GameStateHeuristicChoice.Enabled = checkboxChecked;
@@ -56,6 +63,8 @@ namespace GUI
                     return false;
                 } else if(player1AlgorithmChoice == null) {
                     return false;
+                } else if(player1AlgorithmChoice.SelectedItem.GetType() == typeof(AlphaBeta) && player1NodeChoiceHeuristicChoice == null) {
+                    return false;
                 }
             }
             if(player2AICheckbox.Checked) {
@@ -63,6 +72,8 @@ namespace GUI
                     return false;
                 }
                 else if (player2AlgorithmChoice == null) {
+                    return false;
+                } else if (player2AlgorithmChoice.SelectedItem.GetType() == typeof(AlphaBeta) && player2NodeChoiceHeuristicChoice == null) {
                     return false;
                 }
             }
@@ -73,7 +84,8 @@ namespace GUI
             if (IsSettingsStateValid()) {
                 Player player1;
                 if (player1AICheckbox.Checked) {
-                    player1 = new AIPlayer(1,
+                    player1 = new AIPlayer(
+                        1,
                         (int)player1TreeDepthChoice.Value,
                         (IGameState)player1GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player1NodeChoiceHeuristicChoice.SelectedItem,
@@ -86,7 +98,8 @@ namespace GUI
 
                 Player player2;
                 if (player2AICheckbox.Checked) {
-                    player2 = new AIPlayer(2,
+                    player2 = new AIPlayer(
+                        2,
                         (int)player2TreeDepthChoice.Value,
                         (IGameState)player2GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player2NodeChoiceHeuristicChoice.SelectedItem,
@@ -96,12 +109,11 @@ namespace GUI
                 else {
                     player2 = new HumanPlayer(2);
                 }
-
                 List<Player> players = new List<Player> { player1, player2 };
                 int boardSize = (int)boardSizeChoice.Value;
-
                 BoardForm boardForm = new BoardForm(boardSize, players);
                 boardForm.Show();
+                boardForm.HandleNextMove();
             } else {
                 MessageBox.Show("Niedozwolona kombinacja ustawień!");
             }

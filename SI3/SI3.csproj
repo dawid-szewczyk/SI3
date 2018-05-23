@@ -47,6 +47,9 @@
     <Compile Include="Algorithms\AlphaBeta.cs" />
     <Compile Include="Heuristics\GameState\PointsAdvantage.cs" />
     <Compile Include="Heuristics\GameState\PointsEnemyDisadvantage.cs" />
+    <Compile Include="Heuristics\NodeChoice\ClassicChoice.cs" />
+    <Compile Include="Heuristics\NodeChoice\InnerToOuter.cs" />
+    <Compile Include="Heuristics\NodeChoice\OuterToInner.cs" />
     <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Heuristics\GameState\IGameState.cs" />

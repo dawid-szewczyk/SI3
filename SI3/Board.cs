@@ -8,8 +8,8 @@ namespace SI3
 {
     public class Board
     {
-        int[][] board;
-        int size;
+        public int[][] board { get; set; }
+        public int size { get; set; }
 
         public Board(int size) {
             this.size = size;
@@ -91,11 +91,15 @@ namespace SI3
             board[row][column] = value;
         }
 
-        public List<Tuple<int, int>> GetAvailableMoves() {
+        public List<Tuple<int, int>> GetAvailableMoves()
+        {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
-                    if (board[i][j] == 0) {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    if (board[i][j] == 0)
+                    {
                         result.Add(new Tuple<int, int>(i, j));
                     }
                 }

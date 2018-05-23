@@ -45,7 +45,7 @@ namespace SI3
                 node = new Node(null);
             }
 
-            List<Tuple<int, int>> availableMoves = Board.GetAvailableMoves();
+            List<Tuple<int, int>> availableMoves = NodeSelector.ChooseNode(Board);
             if (currentDepth < treeDepth && availableMoves.Count > 0) {
                 foreach (Tuple<int, int> move in availableMoves) {
                     int color = isPlayerMoving ? Color : Opponent.Color;

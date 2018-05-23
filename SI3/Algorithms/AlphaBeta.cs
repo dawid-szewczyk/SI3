@@ -9,47 +9,50 @@ namespace SI3.Algorithms
     public class AlphaBeta : IAlgorithm
     {
         public Node ChoiceBestMove(Node root)
-        {         
-            Node node = AlphaBetaFunction(root, true, int.MinValue, int.MaxValue);
-            Console.WriteLine("Root value: " + root.Value);
-            foreach (Node child in node.Children) {
-                Console.WriteLine("Child value: " + child.Value);
-            }
-            return node.Children
-                .Where(child => child.Value == root.Value)
-                .FirstOrDefault();
-
-            /*return AlphaBetaFunction(root, true, int.MinValue, int.MaxValue)
+        {
+            return AlphaBetaPruning(root, true, int.MinValue, int.MaxValue)
                 .Children
                 .Where(child => child.Value == root.Value)
-                .FirstOrDefault();*/
+                .FirstOrDefault();
         }
 
-        Node AlphaBetaFunction(Node node, bool maximizing, int alpha, int beta) {
-            if (node.Children.Count == 0) {
+
+        public Node AlphaBetaPruning(Node node, bool maximizing, int alpha, int beta)
+        {
+            if (node.Children.Count == 0)
+            {
                 return node;
             }
-
-            if (maximizing) {
-                foreach (Node child in node.Children) {
-                    alpha = Math.Max(alpha, AlphaBetaFunction(child, false, alpha, beta).Value);
-                    if(alpha >= beta) {
+            if (maximizing)
+            {
+                int bestValue = int.MinValue;
+                foreach (Node child in node.Children)
+                {
+                    Node result = AlphaBetaPruning(child, !maximizing, alpha, beta);
+                    bestValue = Math.Max(result.Value, bestValue);
+                    alpha = Math.Max(alpha, bestValue);
+                    if (beta <= alpha)
                         break;
-                    }
                 }
-                node.Value = beta;
+                node.Value = bestValue;
             }
-            else {
-                foreach (Node child in node.Children) {
-                    beta = Math.Min(beta, AlphaBetaFunction(child, false, alpha, beta).Value);
-                    if(alpha >= beta) {
+            else
+            {
+                int bestValue = int.MaxValue;
+                foreach (Node child in node.Children)
+                {
+                    Node result = AlphaBetaPruning(child, !maximizing, alpha, beta);
+                    bestValue = Math.Min(result.Value, bestValue);
+                    beta = Math.Min(alpha, bestValue);
+                    if (beta <= alpha)
                         break;
-                    }
                 }
-                node.Value = alpha;
+                node.Value = bestValue;
             }
-
+            //
             return node;
         }
+
+
     }
 }

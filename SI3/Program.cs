@@ -12,10 +12,10 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(7);
+            Board board = new Board(4);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 4, new PointsAdvantage(), null, new MinMax()),
-                new AIPlayer(2, 4, new PointsAdvantage(), null, new MinMax())
+                new AIPlayer(1, 3, new PointsAdvantage(), null, new MinMax(), board),
+                new AIPlayer(2, 3, new PointsGain(), null, new MinMax(), board)
             };
 
             if(players[0].GetType() == typeof(AIPlayer)) {
@@ -34,7 +34,7 @@ namespace SI3
                         Console.Write("\n");
                         board.Print();
 
-                        Tuple<int, int> move = player.ChooseMove(board);
+                        Tuple<int, int> move = player.ChooseMove();
                         board.SetPoint(move.Item1, move.Item2, player.Color);
                         player.AddPoints(board.CalculatePointsGain(move.Item1, move.Item2));
                     }

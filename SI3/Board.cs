@@ -87,9 +87,6 @@ namespace SI3
             return points;
         }
 
-
-
-
         public void SetPoint(int row, int column, int value) {
             board[row][column] = value;
         }

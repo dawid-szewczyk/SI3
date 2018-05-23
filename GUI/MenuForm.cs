@@ -87,6 +87,9 @@ namespace GUI
 
         private void StartGameButtonClick(object sender, EventArgs e) {
             if (IsSettingsStateValid()) {
+                int boardSize = (int)boardSizeChoice.Value;
+                BoardForm boardForm = new BoardForm(boardSize);
+
                 Player player1;
                 if (player1AICheckbox.Checked) {
                     player1 = new AIPlayer(
@@ -94,11 +97,12 @@ namespace GUI
                         (int)player1TreeDepthChoice.Value,
                         (IGameState)player1GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player1NodeChoiceHeuristicChoice.SelectedItem,
-                        (IAlgorithm)player1AlgorithmChoice.SelectedItem
+                        (IAlgorithm)player1AlgorithmChoice.SelectedItem,
+                        boardForm.Board
                     );
                 }
                 else {
-                    player1 = new HumanPlayer(1);
+                    player1 = new HumanPlayer(1, boardForm.Board);
                 }
 
                 Player player2;
@@ -108,11 +112,12 @@ namespace GUI
                         (int)player2TreeDepthChoice.Value,
                         (IGameState)player2GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player2NodeChoiceHeuristicChoice.SelectedItem,
-                        (IAlgorithm)player2AlgorithmChoice.SelectedItem
+                        (IAlgorithm)player2AlgorithmChoice.SelectedItem,
+                        boardForm.Board
                     );
                 }
                 else {
-                    player2 = new HumanPlayer(2);
+                    player2 = new HumanPlayer(2, boardForm.Board);
                 }
                 List<Player> players = new List<Player> { player1, player2 };
 
@@ -124,8 +129,8 @@ namespace GUI
                     ((AIPlayer)players[1]).Opponent = players[0];
                 }
 
-                int boardSize = (int)boardSizeChoice.Value;
-                BoardForm boardForm = new BoardForm(boardSize, players);
+                boardForm.SetPlayers(players);
+                boardForm.SetLabelsValues();
                 boardForm.Show();
                 boardForm.HandleNextMove();
             } else {

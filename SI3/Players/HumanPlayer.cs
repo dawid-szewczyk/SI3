@@ -8,11 +8,12 @@ namespace SI3
 {
     public class HumanPlayer : Player
     {
-        public HumanPlayer(int color) {
+        public HumanPlayer(int color, Board board) {
             Color = color;
+            Board = board;
         }
 
-        public override Tuple<int, int> ChooseMove(Board board) {
+        public override Tuple<int, int> ChooseMove() {
             Tuple<int, int> move = null;
             while (move == null) {
                 Console.WriteLine("Podaj współrzędne ruchu:");
@@ -20,7 +21,7 @@ namespace SI3
                 try {
                     int row = Int32.Parse(data[0]);
                     int column = Int32.Parse(data[1]);
-                    if (board.IsFieldEmpty(row, column)) {
+                    if (Board.IsFieldEmpty(row, column)) {
                         move = new Tuple<int, int>(row, column);
                     }
                     else {

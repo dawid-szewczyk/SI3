@@ -9,98 +9,47 @@ namespace SI3.Algorithms
     public class AlphaBeta : IAlgorithm
     {
         public Node ChoiceBestMove(Node root)
-        {
-            return MaxValueNode(root)
-                .Children
+        {         
+            Node node = AlphaBetaFunction(root, true, int.MinValue, int.MaxValue);
+            Console.WriteLine("Root value: " + root.Value);
+            foreach (Node child in node.Children) {
+                Console.WriteLine("Child value: " + child.Value);
+            }
+            return node.Children
                 .Where(child => child.Value == root.Value)
                 .FirstOrDefault();
+
+            /*return AlphaBetaFunction(root, true, int.MinValue, int.MaxValue)
+                .Children
+                .Where(child => child.Value == root.Value)
+                .FirstOrDefault();*/
         }
 
-        //Beta - minimizer
-        //Alfa - maximizer
-
-        public Node MinValueNode(Node curNode)
-        {
-            curNode.Value = int.MaxValue;
-
-            if (curNode.isLeaf())
-                return curNode;
-            foreach (var child in curNode.Children)
-            {
-                Node resultNode = MaxValueNode(child);
-                if (resultNode.Value < curNode.Value)
-                    curNode.Value = resultNode.Value;
-
-                if (resultNode.Value <= curNode.Alpha)
-                    return curNode;
-
-                if (resultNode.Value < curNode.Beta)
-                    curNode.Beta = resultNode.Value;
-
-                
+        Node AlphaBetaFunction(Node node, bool maximizing, int alpha, int beta) {
+            if (node.Children.Count == 0) {
+                return node;
             }
-            return curNode;
-        }
 
-        public Node MaxValueNode(Node curNode)
-        {
-            curNode.Value = int.MinValue;
-            if (curNode.isLeaf())
-                return curNode;
-            foreach (var child in curNode.Children)
-            {
-                Node resultNode = MinValueNode(child);
-                if (resultNode.Value > curNode.Value)
-                    curNode.Value = resultNode.Value;
-
-                if (resultNode.Value >= curNode.Beta)
-                    return curNode;
-
-                if (resultNode.Value > curNode.Alpha)
-                    curNode.Alpha = resultNode.Value;
-
-                
-
+            if (maximizing) {
+                foreach (Node child in node.Children) {
+                    alpha = Math.Max(alpha, AlphaBetaFunction(child, false, alpha, beta).Value);
+                    if(alpha >= beta) {
+                        break;
+                    }
+                }
+                node.Value = beta;
             }
-            return curNode;
+            else {
+                foreach (Node child in node.Children) {
+                    beta = Math.Min(beta, AlphaBetaFunction(child, false, alpha, beta).Value);
+                    if(alpha >= beta) {
+                        break;
+                    }
+                }
+                node.Value = alpha;
+            }
+
+            return node;
         }
-
-
-
-        // Node AlphaBetaFunction(Node node, bool maximizing, int alpha,int beta)
-        //{
-        //    if (node.Children.Count == 0)
-        //        return node;
-        //    //Jeżeli rusza się przeciwnik to dla każdego węzła szukamy bety (minimum)
-        //    if(!maximizing)
-        //    {
-        //        foreach(var child in node.Children)
-        //        {
-        //            int resultNodeValue = Math.Min(node.Value,AlphaBetaFunction(child, true, alpha, beta).Value);
-        //            beta = Math.Min(beta, resultNodeValue);
-        //            if (alpha >= beta)
-        //            {
-        //                node.Beta = beta;
-        //                node.Value = beta;
-        //                return node;
-        //            }
-        //        }
-        //    }
-        //    else
-        //    {
-        //        foreach (var child in node.Children)
-        //        {
-        //            int resultNodeValue = Math.Max(node.Value, AlphaBetaFunction(child, false, alpha, beta).Value);
-        //            alpha = Math.Max(alpha, resultNodeValue);
-        //            if (alpha >= beta)
-        //            {
-        //                node.Alpha = alpha;
-        //                node.Value = alpha;
-        //                return node;
-        //            }
-        //        }
-        //    }
-        //    return node;
-        //}
     }
 }

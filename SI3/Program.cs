@@ -14,7 +14,7 @@ namespace SI3
         static void Main(string[] args) {
             Board board = new Board(4);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 3, new PointsAdvantage(), null, new MinMax(), board),
+                new AIPlayer(1, 3, new PointsAdvantage(), null, new AlphaBeta(), board),
                 new AIPlayer(2, 3, new PointsGain(), null, new MinMax(), board)
             };
 

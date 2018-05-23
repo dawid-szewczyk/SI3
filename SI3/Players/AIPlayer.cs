@@ -31,9 +31,6 @@ namespace SI3
         public override Tuple<int, int> ChooseMove() {
             currentBoard = new Board(Board);
             Node root = BuildTree(new List<Tuple<int, int, int>>(), 0, true);
-
-            //root.Visit();
-
             return Algorithm.ChoiceBestMove(root).PositionOnBoard;
         }
 

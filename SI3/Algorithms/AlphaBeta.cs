@@ -49,7 +49,7 @@ namespace SI3.Algorithms
                 }
                 node.Value = bestValue;
             }
-
+            //
             return node;
         }
 

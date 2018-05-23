@@ -35,8 +35,13 @@ namespace GUI
 
         void FillGameStateHeuristicComboBoxes() {
             IGameState pointsGain = new PointsGain();
+            IGameState pointsAdvantage = new PointsAdvantage();
+
             player1GameStateHeuristicChoice.Items.Add(pointsGain);
             player2GameStateHeuristicChoice.Items.Add(pointsGain);
+
+            player1GameStateHeuristicChoice.Items.Add(pointsAdvantage);
+            player2GameStateHeuristicChoice.Items.Add(pointsAdvantage);
         }
 
         private void Player1AICheckboxCheckedChanged(object sender, EventArgs e) {
@@ -110,6 +115,15 @@ namespace GUI
                     player2 = new HumanPlayer(2);
                 }
                 List<Player> players = new List<Player> { player1, player2 };
+
+                if (players[0].GetType() == typeof(AIPlayer)) {
+                    ((AIPlayer)players[0]).Opponent = players[1];
+                }
+
+                if (players[1].GetType() == typeof(AIPlayer)) {
+                    ((AIPlayer)players[1]).Opponent = players[0];
+                }
+
                 int boardSize = (int)boardSizeChoice.Value;
                 BoardForm boardForm = new BoardForm(boardSize, players);
                 boardForm.Show();

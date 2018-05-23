@@ -82,7 +82,7 @@ namespace GUI
         }
 
         public void HandleNextMove() {
-            //MessageBox.Show("Next move");
+            Refresh();
             if (board.GetAvailableMoves().Any()) {
                 if (players[currentPlayerIndex].GetType() == typeof(AIPlayer)) {
                     Tuple<int, int> move = players[currentPlayerIndex].ChooseMove(board);

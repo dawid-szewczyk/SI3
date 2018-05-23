@@ -45,6 +45,7 @@
     <Compile Include="Algorithms\IAlgorithm.cs" />
     <Compile Include="Algorithms\MinMax.cs" />
     <Compile Include="Algorithms\AlphaBeta.cs" />
+    <Compile Include="Heuristics\GameState\PointsAdvantage.cs" />
     <Compile Include="Players\AIPlayer.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="Heuristics\GameState\IGameState.cs" />

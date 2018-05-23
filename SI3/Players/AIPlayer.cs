@@ -12,9 +12,10 @@ namespace SI3
     public class AIPlayer : Player
     {
         int treeDepth;
+        public Player Opponent { set; get; }
         public IGameState GameStateCalculator { get; }
         public INodeChoice NodeSelector { get; }
-        public IAlgorithm Algorithm { get; }
+        public IAlgorithm Algorithm { get; }       
 
         public AIPlayer(int color, int treeDepth, IGameState gameStateCalculator, INodeChoice nodeSelector, IAlgorithm algorithm) {
             Color = color;
@@ -42,7 +43,7 @@ namespace SI3
                 }
             }
             else {
-                node.Value = GameStateCalculator.Calculate(board, node.PositionOnBoard);
+                node.Value = GameStateCalculator.Calculate(board, node.PositionOnBoard, this, Opponent);
             }
             return node;
         }

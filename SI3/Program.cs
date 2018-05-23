@@ -12,13 +12,21 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(4);
+            Board board = new Board(7);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
-                new HumanPlayer(2)
+                new AIPlayer(1, 4, new PointsAdvantage(), null, new MinMax()),
+                new AIPlayer(2, 4, new PointsAdvantage(), null, new MinMax())
             };
 
-            while(board.GetAvailableMoves().Any()) {          
+            if(players[0].GetType() == typeof(AIPlayer)) {
+                ((AIPlayer)players[0]).Opponent = players[1];
+            }
+
+            if (players[1].GetType() == typeof(AIPlayer)) {
+                ((AIPlayer)players[1]).Opponent = players[0];
+            }
+
+            while (board.GetAvailableMoves().Any()) {          
                 foreach(Player player in players) {
                     if (board.GetAvailableMoves().Any()) {
                         Console.Write("Stan gry -");

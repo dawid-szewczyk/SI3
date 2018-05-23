@@ -12,10 +12,10 @@ namespace SI3
     class Program
     {
         static void Main(string[] args) {
-            Board board = new Board(4);
+            Board board = new Board(5);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 3, new PointsAdvantage(), null, new MinMax(), board),
-                new AIPlayer(2, 3, new PointsGain(), null, new MinMax(), board)
+                new AIPlayer(1, 4, new PointsEnemyDisadvantage(), null, new  AlphaBeta(), board),
+                new AIPlayer(2, 4, new PointsAdvantage(), null, new  AlphaBeta(), board)
             };
 
             if(players[0].GetType() == typeof(AIPlayer)) {
@@ -50,6 +50,8 @@ namespace SI3
             } else {
                 Console.WriteLine("Nie ma graczy - nie ma gry.");
             }
+
+            Console.ReadLine();
         }
     }
 }

@@ -6,23 +6,22 @@ using System.Threading.Tasks;
 
 namespace SI3.Heuristics.GameState
 {
-    public class PointsGain : IGameState
+    public class PointsAdvantage : IGameState
     {
         public int Calculate(Board board, List<Tuple<int, int, int>> movesSequence, Player player, Player opponent) {
-            //return board.CalculatePointsGain(move.Item1, move.Item2);
+            //return player.Points + board.CalculatePointsGain(move.Item1, move.Item2) - opponent.Points;
             int result = 0;
             Board movesBoard = new Board(board);
-            foreach (Tuple<int, int, int> move in movesSequence) {
+            foreach(Tuple<int, int, int> move in movesSequence) {
                 movesBoard.SetPoint(move.Item1, move.Item2, move.Item3);
-                if(move.Item3 == player.Color) {
-                    result += movesBoard.CalculatePointsGain(move.Item1, move.Item2);
-                }
+                int pointsChange = movesBoard.CalculatePointsGain(move.Item1, move.Item2);
+                result += move.Item3 == player.Color ? pointsChange : -pointsChange;
             }
             return result;
         }
 
         public override string ToString() {
-            return "Zysk punktowy";
+            return "Przewaga punktowa";
         }
     }
 }

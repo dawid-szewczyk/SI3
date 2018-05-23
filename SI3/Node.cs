@@ -25,6 +25,16 @@ namespace SI3
             Children.Add(child);
         }
 
+        public void Visit() {
+            if (PositionOnBoard != null) { 
+                Console.WriteLine($"Pozycja: {PositionOnBoard.Item1}, {PositionOnBoard.Item2}. Wartość: {Value}");
+            }
+
+            foreach(Node child in Children) {
+                child.Visit();
+            }
+        }
+
         public bool isLeaf()
         {
             return !Children.Any();

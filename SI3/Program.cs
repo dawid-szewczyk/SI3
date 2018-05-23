@@ -14,11 +14,19 @@ namespace SI3
         static void Main(string[] args) {
             Board board = new Board(4);
             List<Player> players = new List<Player> {
-                new AIPlayer(1, 4, new PointsGain(), null, new MinMax()),
-                new HumanPlayer(2)
+                new AIPlayer(1, 3, new PointsAdvantage(), null, new MinMax(), board),
+                new AIPlayer(2, 3, new PointsGain(), null, new MinMax(), board)
             };
 
-            while(board.GetAvailableMoves().Any()) {          
+            if(players[0].GetType() == typeof(AIPlayer)) {
+                ((AIPlayer)players[0]).Opponent = players[1];
+            }
+
+            if (players[1].GetType() == typeof(AIPlayer)) {
+                ((AIPlayer)players[1]).Opponent = players[0];
+            }
+
+            while (board.GetAvailableMoves().Any()) {          
                 foreach(Player player in players) {
                     if (board.GetAvailableMoves().Any()) {
                         Console.Write("Stan gry -");
@@ -26,7 +34,7 @@ namespace SI3
                         Console.Write("\n");
                         board.Print();
 
-                        Tuple<int, int> move = player.ChooseMove(board);
+                        Tuple<int, int> move = player.ChooseMove();
                         board.SetPoint(move.Item1, move.Item2, player.Color);
                         player.AddPoints(board.CalculatePointsGain(move.Item1, move.Item2));
                     }

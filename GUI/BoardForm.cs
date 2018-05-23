@@ -13,21 +13,23 @@ namespace GUI
 {
     public partial class BoardForm : Form
     {
-        Board board;
+        public Board Board { get; private set; }
         List<Player> players;
         int currentPlayerIndex;
         Color[] colors = new Color[] { Color.Green, Color.Red };
 
-        public BoardForm(int size, List<Player> players) {
+        public BoardForm(int size) {
             InitializeComponent();
-            this.players = players;
             CreateBoard(size);
-            SetLabelsValues();
             currentPlayerIndex = 0;
         }
 
+        public void SetPlayers(List<Player> players) {
+            this.players = players;
+        }
+
         void CreateBoard(int size) {
-            board = new Board(size);
+            Board = new Board(size);
             int fieldSize = (boardPanel.Size.Width - (size - 1)) / size;
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
@@ -43,7 +45,7 @@ namespace GUI
             }
         }
 
-        void SetLabelsValues() {
+        public void SetLabelsValues() {
             if (players[0].GetType() == typeof(AIPlayer)) {
                 player1AlgorithmNameLabel.Text = ((AIPlayer)players[0]).Algorithm.ToString();
                 player1GameStateHeuristicNameLabel.Text = ((AIPlayer)players[0]).GameStateCalculator.ToString();
@@ -82,18 +84,18 @@ namespace GUI
         }
 
         public void HandleNextMove() {
-            //MessageBox.Show("Next move");
-            if (board.GetAvailableMoves().Any()) {
+            Refresh();
+            if (Board.GetAvailableMoves().Any()) {
                 if (players[currentPlayerIndex].GetType() == typeof(AIPlayer)) {
-                    Tuple<int, int> move = players[currentPlayerIndex].ChooseMove(board);
+                    Tuple<int, int> move = players[currentPlayerIndex].ChooseMove();
                     UpdateBoard(move);                  
                 }
             }
         }
 
         void UpdateBoard(Tuple<int, int> move) {
-            board.SetPoint(move.Item1, move.Item2, players[currentPlayerIndex].Color);
-            players[currentPlayerIndex].AddPoints(board.CalculatePointsGain(move.Item1, move.Item2));
+            Board.SetPoint(move.Item1, move.Item2, players[currentPlayerIndex].Color);
+            players[currentPlayerIndex].AddPoints(Board.CalculatePointsGain(move.Item1, move.Item2));
 
             player1PointsValueLabel.Text = players[0].Points.ToString();
             player2PointsValueLabel.Text = players[1].Points.ToString();
@@ -114,7 +116,7 @@ namespace GUI
                 int row = Int32.Parse(coords[0]);
                 int column = Int32.Parse(coords[1]);
 
-                if (board.IsFieldEmpty(row, column)) {
+                if (Board.IsFieldEmpty(row, column)) {
                     UpdateBoard(new Tuple<int, int>(row, column));
                 } else {
                     MessageBox.Show("Wybrane pole jest zajęte!");

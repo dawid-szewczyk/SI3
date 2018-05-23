@@ -72,7 +72,7 @@ namespace SI3
             int diff = Math.Min(size - 1 - chosenRow, chosenColumn);
             i = chosenRow + diff;
             j = chosenColumn - diff;
-            while(i > 0 && j < size) {
+            while(i >= 0 && j < size) {
                 if (board[i][j] != 0) {
                     chosenFields++;
                 }
@@ -86,9 +86,6 @@ namespace SI3
 
             return points;
         }
-
-
-
 
         public void SetPoint(int row, int column, int value) {
             board[row][column] = value;

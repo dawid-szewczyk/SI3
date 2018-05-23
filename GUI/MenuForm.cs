@@ -35,8 +35,13 @@ namespace GUI
 
         void FillGameStateHeuristicComboBoxes() {
             IGameState pointsGain = new PointsGain();
+            IGameState pointsAdvantage = new PointsAdvantage();
+
             player1GameStateHeuristicChoice.Items.Add(pointsGain);
             player2GameStateHeuristicChoice.Items.Add(pointsGain);
+
+            player1GameStateHeuristicChoice.Items.Add(pointsAdvantage);
+            player2GameStateHeuristicChoice.Items.Add(pointsAdvantage);
         }
 
         private void Player1AICheckboxCheckedChanged(object sender, EventArgs e) {
@@ -82,6 +87,9 @@ namespace GUI
 
         private void StartGameButtonClick(object sender, EventArgs e) {
             if (IsSettingsStateValid()) {
+                int boardSize = (int)boardSizeChoice.Value;
+                BoardForm boardForm = new BoardForm(boardSize);
+
                 Player player1;
                 if (player1AICheckbox.Checked) {
                     player1 = new AIPlayer(
@@ -89,11 +97,12 @@ namespace GUI
                         (int)player1TreeDepthChoice.Value,
                         (IGameState)player1GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player1NodeChoiceHeuristicChoice.SelectedItem,
-                        (IAlgorithm)player1AlgorithmChoice.SelectedItem
+                        (IAlgorithm)player1AlgorithmChoice.SelectedItem,
+                        boardForm.Board
                     );
                 }
                 else {
-                    player1 = new HumanPlayer(1);
+                    player1 = new HumanPlayer(1, boardForm.Board);
                 }
 
                 Player player2;
@@ -103,15 +112,25 @@ namespace GUI
                         (int)player2TreeDepthChoice.Value,
                         (IGameState)player2GameStateHeuristicChoice.SelectedItem,
                         (INodeChoice)player2NodeChoiceHeuristicChoice.SelectedItem,
-                        (IAlgorithm)player2AlgorithmChoice.SelectedItem
+                        (IAlgorithm)player2AlgorithmChoice.SelectedItem,
+                        boardForm.Board
                     );
                 }
                 else {
-                    player2 = new HumanPlayer(2);
+                    player2 = new HumanPlayer(2, boardForm.Board);
                 }
                 List<Player> players = new List<Player> { player1, player2 };
-                int boardSize = (int)boardSizeChoice.Value;
-                BoardForm boardForm = new BoardForm(boardSize, players);
+
+                if (players[0].GetType() == typeof(AIPlayer)) {
+                    ((AIPlayer)players[0]).Opponent = players[1];
+                }
+
+                if (players[1].GetType() == typeof(AIPlayer)) {
+                    ((AIPlayer)players[1]).Opponent = players[0];
+                }
+
+                boardForm.SetPlayers(players);
+                boardForm.SetLabelsValues();
                 boardForm.Show();
                 boardForm.HandleNextMove();
             } else {

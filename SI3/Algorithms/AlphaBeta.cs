@@ -57,7 +57,7 @@ namespace SI3.Algorithms
                     return curNode;
 
                 if (resultNode.Value > curNode.Alpha)
-                    curNode.Alpha = resultNode.Alpha;
+                    curNode.Alpha = resultNode.Value;
 
                 
 

@@ -229,7 +229,7 @@
             this.boardSizeChoice.Size = new System.Drawing.Size(70, 30);
             this.boardSizeChoice.TabIndex = 2;
             this.boardSizeChoice.Value = new decimal(new int[] {
-            7,
+            5,
             0,
             0,
             0});

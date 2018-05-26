@@ -20,6 +20,7 @@ namespace GUI
             InitializeComponent();
             FillAlgorithmComboBoxes();
             FillGameStateHeuristicComboBoxes();
+            FillNodeChoiceHeuristicComboBoxes();
         }
 
         void FillAlgorithmComboBoxes() {
@@ -36,12 +37,31 @@ namespace GUI
         void FillGameStateHeuristicComboBoxes() {
             IGameState pointsGain = new PointsGain();
             IGameState pointsAdvantage = new PointsAdvantage();
+            IGameState weightedPointsAdvantage = new WeightedPointsAdvantage();
 
             player1GameStateHeuristicChoice.Items.Add(pointsGain);
             player2GameStateHeuristicChoice.Items.Add(pointsGain);
 
             player1GameStateHeuristicChoice.Items.Add(pointsAdvantage);
             player2GameStateHeuristicChoice.Items.Add(pointsAdvantage);
+
+            player1GameStateHeuristicChoice.Items.Add(weightedPointsAdvantage);
+            player2GameStateHeuristicChoice.Items.Add(weightedPointsAdvantage);
+        }
+
+        void FillNodeChoiceHeuristicComboBoxes() {
+            INodeChoice standardSelector = new StandardSelector();
+            INodeChoice maxFirstSelector = new MaxFirstSelector();
+            INodeChoice minFirstSelector = new MinFirstSelector();
+
+            player1NodeChoiceHeuristicChoice.Items.Add(standardSelector);
+            player2NodeChoiceHeuristicChoice.Items.Add(standardSelector);
+
+            player1NodeChoiceHeuristicChoice.Items.Add(maxFirstSelector);
+            player2NodeChoiceHeuristicChoice.Items.Add(maxFirstSelector);
+
+            player1NodeChoiceHeuristicChoice.Items.Add(minFirstSelector);
+            player2NodeChoiceHeuristicChoice.Items.Add(minFirstSelector);
         }
 
         private void Player1AICheckboxCheckedChanged(object sender, EventArgs e) {
@@ -66,9 +86,9 @@ namespace GUI
             if(player1AICheckbox.Checked) {
                 if(player1GameStateHeuristicChoice.SelectedItem == null) {
                     return false;
-                } else if(player1AlgorithmChoice == null) {
+                } else if(player1AlgorithmChoice.SelectedItem == null) {
                     return false;
-                } else if(player1AlgorithmChoice.SelectedItem.GetType() == typeof(AlphaBeta) && player1NodeChoiceHeuristicChoice == null) {
+                } else if(player1NodeChoiceHeuristicChoice.SelectedItem == null) {
                     return false;
                 }
             }
@@ -76,9 +96,9 @@ namespace GUI
                 if (player2GameStateHeuristicChoice.SelectedItem == null) {
                     return false;
                 }
-                else if (player2AlgorithmChoice == null) {
+                else if (player2AlgorithmChoice.SelectedItem == null) {
                     return false;
-                } else if (player2AlgorithmChoice.SelectedItem.GetType() == typeof(AlphaBeta) && player2NodeChoiceHeuristicChoice == null) {
+                } else if (player2NodeChoiceHeuristicChoice.SelectedItem == null) {
                     return false;
                 }
             }

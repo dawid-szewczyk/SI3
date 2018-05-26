@@ -9,17 +9,17 @@ namespace SI3
     public class Board
     {
         int[][] board;
-        int size;
+        public int Size { get; private set; }
 
         public Board(int size) {
-            this.size = size;
+            this.Size = size;
             board = new int[size][];
             for (int i = 0; i < size; i++) {
                 board[i] = new int[size];
             }
         }
 
-        public Board(Board other) : this(other.size) {
+        public Board(Board other) : this(other.Size) {
             board = other.board.Select(s => s.ToArray()).ToArray();
         }
 
@@ -33,20 +33,20 @@ namespace SI3
 
             // Czy punkt uzupełnił wiersz
             i = 0;
-            while(i < size && board[chosenRow][i] != 0) {
+            while(i < Size && board[chosenRow][i] != 0) {
                 i++;
             }
-            if(i == size) {
-                points += size;
+            if(i == Size) {
+                points += Size;
             }
 
             // Czy punkt uzupełnił kolumnę
             i = 0;
-            while (i < size && board[i][chosenColumn] != 0) {
+            while (i < Size && board[i][chosenColumn] != 0) {
                 i++;
             }
-            if (i == size) {
-                points += size;
+            if (i == Size) {
+                points += Size;
             }
 
             // Czy punkt uzupełnił przekątną góra-lewo dół-prawo
@@ -54,7 +54,7 @@ namespace SI3
             int chosenFields = 0;
             i = chosenRow - Math.Min(chosenRow, chosenColumn);
             j = chosenColumn - Math.Min(chosenRow, chosenColumn);
-            while (i < size && j < size) {
+            while (i < Size && j < Size) {
                 if (board[i][j] != 0) {
                     chosenFields++;
                 }
@@ -69,10 +69,10 @@ namespace SI3
             // Czy punkt uzupełnił przekątną dół-lewo góra-prawo
             fields = 0;
             chosenFields = 0;
-            int diff = Math.Min(size - 1 - chosenRow, chosenColumn);
+            int diff = Math.Min(Size - 1 - chosenRow, chosenColumn);
             i = chosenRow + diff;
             j = chosenColumn - diff;
-            while(i >= 0 && j < size) {
+            while(i >= 0 && j < Size) {
                 if (board[i][j] != 0) {
                     chosenFields++;
                 }
@@ -93,8 +93,8 @@ namespace SI3
 
         public List<Tuple<int, int>> GetAvailableMoves() {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
+            for (int i = 0; i < Size; i++) {
+                for (int j = 0; j < Size; j++) {
                     if (board[i][j] == 0) {
                         result.Add(new Tuple<int, int>(i, j));
                     }
@@ -108,8 +108,8 @@ namespace SI3
         }
 
         public void Print() {
-            for (int i = 0; i < size; i++) {
-                for (int j = 0; j < size; j++) {
+            for (int i = 0; i < Size; i++) {
+                for (int j = 0; j < Size; j++) {
                     Console.Write(board[i][j] + " ");
                 }
                 Console.Write("\n");

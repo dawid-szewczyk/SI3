@@ -8,6 +8,6 @@ namespace SI3.Heuristics.NodeChoice
 {
     public interface INodeChoice
     {
-        Node ChooseNode(Node parent);
+        Node ChooseNode(AIPlayer player);
     }
 }

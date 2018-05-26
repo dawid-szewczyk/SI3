@@ -8,14 +8,25 @@ namespace SI3.Algorithms
 {
     public class MinMax : IAlgorithm
     {
+        public List<int> NodeEntries { get; private set; }
+        int currentEntries;
+
+        public MinMax() {
+            NodeEntries = new List<int>();
+        }
+
         public Node ChoiceBestMove(Node root) {
-            return MinMaxFunction(root, true)
+            currentEntries = 0;
+            Node node = MinMaxFunction(root, true);
+            NodeEntries.Add(currentEntries);
+            return node
                 .Children
                 .Where(child => child.Value == root.Value)
                 .FirstOrDefault();
         }
 
         Node MinMaxFunction(Node node, bool maximizing) {
+            currentEntries++;
             if(node.Children.Count == 0) {
                 return node;
             }
@@ -40,7 +51,7 @@ namespace SI3.Algorithms
         }
 
         public override string ToString() {
-            return "MinMax";
+            return "Min-max";
         }
     }
 }

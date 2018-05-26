@@ -12,6 +12,7 @@ namespace SI3
 {
     class Program
     {
+       
         static void Main(string[] args) {
             Board board = new Board(7);
             List<Player> players = new List<Player> {

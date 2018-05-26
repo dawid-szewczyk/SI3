@@ -91,7 +91,8 @@ namespace SI3
             board[row][column] = value;
         }
 
-        public List<Tuple<int, int>> GetAvailableMoves() {
+        public List<Tuple<int, int>> GetAvailableMoves()
+        {
             List<Tuple<int, int>> result = new List<Tuple<int, int>>();
             for (int i = 0; i < Size; i++) {
                 for (int j = 0; j < Size; j++) {
